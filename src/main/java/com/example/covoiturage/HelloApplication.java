@@ -1,5 +1,6 @@
 package com.example.covoiturage;
 
+import com.example.covoiturage.bd.BD;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,7 +18,4 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }
