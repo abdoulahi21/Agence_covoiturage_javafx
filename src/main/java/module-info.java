@@ -3,6 +3,7 @@ module com.example.covoiturage {
     requires javafx.fxml;
     requires java.sql;
     requires java.persistence;
+    requires jakarta.persistence;
 
 
     opens com.example.covoiturage to javafx.fxml;
