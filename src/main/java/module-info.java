@@ -2,6 +2,7 @@ module com.example.covoiturage {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires java.persistence;
 
 
     opens com.example.covoiturage to javafx.fxml;
