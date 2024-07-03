@@ -1,5 +1,6 @@
 package com.example.covoiturage.model;
-import javax.persistence.*;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Reservation {
@@ -20,3 +21,4 @@ public class Reservation {
 
     // Getters and setters
 }
+

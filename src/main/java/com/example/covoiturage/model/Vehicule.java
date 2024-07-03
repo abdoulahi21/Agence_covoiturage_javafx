@@ -1,5 +1,6 @@
 package com.example.covoiturage.model;
-import javax.persistence.*;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Vehicule {

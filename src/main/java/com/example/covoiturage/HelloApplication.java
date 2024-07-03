@@ -1,11 +1,11 @@
 package com.example.covoiturage;
 
-import com.example.covoiturage.bd.BD;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import jakarta.persistence.EntityManagerFactory;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -16,6 +16,8 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
+        EntityManagerFactory entityManagerFactory= JpaUtil.getEntityManagerFactory();
     }
 
 }
