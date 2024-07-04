@@ -46,7 +46,6 @@ public class LoginController {
                 alert.setHeaderText(null);
                 alert.setContentText("Vous êtes maintenant connecté");
                 alert.showAndWait();
-                //TODO: redirect to home page
                 Parent fxml= FXMLLoader.load(getClass().getResource("hello-view.fxml"));
                 Scene scene = new Scene(fxml);
                 Stage stage=(Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
@@ -64,4 +63,15 @@ public class LoginController {
             champMdp.setText("");
         }
     }
+
+    @FXML
+    void btnRegister(ActionEvent event) throws IOException {
+        Parent fxml= FXMLLoader.load(getClass().getResource("register-view.fxml"));
+        Scene scene = new Scene(fxml);
+        Stage stage=(Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Register");
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }

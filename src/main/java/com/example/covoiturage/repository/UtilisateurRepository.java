@@ -2,6 +2,7 @@ package com.example.covoiturage.repository;
 
 import com.example.covoiturage.JpaUtil;
 import com.example.covoiturage.model.Utilisateur;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
 
@@ -13,5 +14,14 @@ public class UtilisateurRepository {
                 .setParameter("password", password)
                 .getSingleResult();
         return utilisateur;
+    }
+
+    public void addUtilisateur(Utilisateur utilisateur) {
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(utilisateur);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 }
