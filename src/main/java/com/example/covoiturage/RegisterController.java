@@ -97,7 +97,6 @@ public class RegisterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //TODO: populate combo box
         ObservableList items = combo.getItems();
         items.add("conducteur");
         items.add("passager");

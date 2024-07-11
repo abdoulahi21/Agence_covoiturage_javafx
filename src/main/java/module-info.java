@@ -7,6 +7,6 @@ module com.example.covoiturage {
     requires static lombok;
 
     opens com.example.covoiturage.model;
-    opens com.example.covoiturage to javafx.fxml;
     exports com.example.covoiturage;
+    opens com.example.covoiturage;
 }
