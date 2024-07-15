@@ -15,11 +15,16 @@ public class UserSession {
         return instance;
     }
 
+
     public Utilisateur getLoggedInUser() {
         return loggedInUser;
     }
 
     public void setLoggedInUser(Utilisateur user) {
         this.loggedInUser = user;
+    }
+
+    public void cleanUserSession() {
+        loggedInUser = null;
     }
 }

@@ -1,15 +1,13 @@
 package com.example.covoiturage.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity
 public class Reservation {
 
@@ -26,7 +24,11 @@ public class Reservation {
     private Utilisateur passager;
 
     private int placesReservees;
-
+    private String etat;
     // Getters and setters
+
+    public Utilisateur getPassagerId() {
+        return passager;
+    }
 }
 

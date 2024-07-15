@@ -64,6 +64,7 @@ public class LoginController {
                 alert.setContentText("Login ou mot de passe incorrect");
                 alert.showAndWait();
             }
+            entityManager.close();
             champLogin.setText("");
             champMdp.setText("");
         }

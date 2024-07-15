@@ -6,7 +6,9 @@ module com.example.covoiturage {
     requires jasperreports;
     requires static lombok;
 
+    opens com.example.covoiturage.repository;
     opens com.example.covoiturage.model;
     exports com.example.covoiturage;
     opens com.example.covoiturage;
+
 }

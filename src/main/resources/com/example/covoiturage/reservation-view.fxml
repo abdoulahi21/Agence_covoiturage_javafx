@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.covoiturage.ReservationController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="657.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covoiturage.ReservationController">
+  <tabs>
+    <Tab text="Réservations">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="270.0" prefWidth="657.0">
+               <children>
+                  <Label layoutX="114.0" layoutY="38.0" text="Trajet" />
+                  <Label layoutX="115.0" layoutY="106.0" text="Nombres de Places" />
+                  <ComboBox fx:id="combo" layoutX="114.0" layoutY="62.0" prefHeight="25.0" prefWidth="194.0" />
+                  <TextField fx:id="champPlaceReserve" layoutX="114.0" layoutY="130.0" prefHeight="25.0" prefWidth="194.0" />
+                  <Button layoutX="357.0" layoutY="62.0" mnemonicParsing="false" onAction="#btnReservez" text="Réservez" />
+                  <Button layoutX="359.0" layoutY="102.0" mnemonicParsing="false" onAction="#btnClear" text="Annuler" />
+                  <TableView fx:id="tableReservation" layoutX="19.0" layoutY="189.0" prefHeight="286.0" prefWidth="633.0">
+                    <columns>
+                      <TableColumn fx:id="colDepart" prefWidth="75.0" text="Départ" />
+                      <TableColumn fx:id="colDestination" prefWidth="75.0" text="Destination" />
+                        <TableColumn fx:id="colJour" prefWidth="75.0" text="Jour" />
+                        <TableColumn fx:id="colHeure" prefWidth="75.0" text="Heure" />
+                        <TableColumn fx:id="colnbPlaces" prefWidth="115.33331298828125" text="Nombres de Places" />
+                        <TableColumn fx:id="colPassager" prefWidth="106.66671752929688" text="Passager" />
+                        <TableColumn fx:id="colTarif" prefWidth="120.0" text="Tarif" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="encours" text="Réservations encours">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView layoutX="6.0" layoutY="1.0" prefHeight="476.0" prefWidth="657.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab fx:id="termine" text="Réservations términées">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView layoutX="8.0" layoutY="2.0" prefHeight="470.0" prefWidth="657.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="passee" text="Résevations passées">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>

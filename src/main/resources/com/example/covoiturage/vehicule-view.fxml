@@ -7,16 +7,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="504.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covoiturage.VehiculeController">
    <children>
-      <TableView layoutX="15.0" layoutY="244.0" prefHeight="260.0" prefWidth="643.0">
+      <TableView fx:id="tableVehicule" layoutX="15.0" layoutY="244.0" onMouseClicked="#charge" prefHeight="260.0" prefWidth="643.0">
         <columns>
           <TableColumn fx:id="colMatricule" prefWidth="122.6666589975357" text="Matricule" />
           <TableColumn fx:id="colMarque" prefWidth="102.6666488647461" text="Marque" />
             <TableColumn fx:id="colModel" prefWidth="100.00001525878906" text="Model" />
             <TableColumn fx:id="colNombrePlaces" prefWidth="125.33331298828125" text="Nombre de Places" />
             <TableColumn fx:id="colConducteur" prefWidth="190.66667683919275" text="Conducteur" />
+            <TableColumn fx:id="colid" prefWidth="190.66667683919275" text="Conducteur" visible="false" />
         </columns>
       </TableView>
       <Label layoutX="52.0" layoutY="40.0" text="Marque" />
@@ -31,6 +31,6 @@
       <Button layoutX="337.0" layoutY="203.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="25.0" prefWidth="71.0" text="Annuler" />
       <Label layoutX="380.0" layoutY="115.0" text="Nombre de Places" />
       <TextField fx:id="champNombreplace" layoutX="380.0" layoutY="140.0" prefHeight="25.0" prefWidth="215.0" />
-      <TextField fx:id="champConducteur" layoutX="193.0" layoutY="28.0" />
+      <TextField fx:id="champcherche" layoutX="477.0" layoutY="204.0" onKeyPressed="#onsearch" promptText="Recherche" />
    </children>
 </AnchorPane>

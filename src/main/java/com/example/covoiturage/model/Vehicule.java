@@ -1,10 +1,7 @@
 package com.example.covoiturage.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -23,4 +20,5 @@ public class Vehicule {
     @JoinColumn(name = "conducteur_id")
     private Utilisateur conducteur;
     // Getters and setters
+
 }

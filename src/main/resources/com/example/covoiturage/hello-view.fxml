@@ -20,7 +20,7 @@
                   <DropShadow />
                </effect>
             </ImageView>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="233.0" style="-fx-background-color: white;" text="Accueil">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#pageDashboard" prefHeight="37.0" prefWidth="233.0" style="-fx-background-color: white;" text="Accueil">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -45,7 +45,7 @@
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/icons8_Xbox_Menu_32px.png" />
+                        <Image url="@../../../images/voiture.jpg" />
                      </image>
                   </ImageView>
                </graphic>
@@ -56,14 +56,14 @@
                   <Insets left="30.0" />
                </padding>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="130.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="233.0" style="-fx-background-color: white;" text="Gestion des Trajets">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="130.0" mnemonicParsing="false" onAction="#pageTrajet" prefHeight="37.0" prefWidth="233.0" style="-fx-background-color: white;" text="Gestion des Trajets">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/icons8_Person_32px.png" />
+                        <Image url="@../../../images/trajet.jpg" />
                      </image>
                   </ImageView>
                </graphic>
@@ -74,14 +74,14 @@
                   <Insets left="30.0" />
                </padding>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="168.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="233.0" style="-fx-background-color: white;" text="Gestion des Réservations ">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="168.0" mnemonicParsing="false" onAction="#pageReservations" prefHeight="37.0" prefWidth="233.0" style="-fx-background-color: white;" text="Gestion des Réservations ">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/icons8_Slider__32px.png" />
+                        <Image url="@../../../images/reservation.jpg" />
                      </image>
                   </ImageView>
                </graphic>
@@ -99,7 +99,7 @@
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/icons8_Box_32px.png" />
+                        <Image url="@../../../images/users.jpg" />
                      </image>
                   </ImageView>
                </graphic>
@@ -110,7 +110,7 @@
                   <Insets left="30.0" />
                </padding>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="272.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="233.0" style="-fx-background-color: white;" text="Deconnexion">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="272.0" mnemonicParsing="false" onAction="#Logout" prefHeight="37.0" prefWidth="233.0" style="-fx-background-color: white;" text="Deconnexion">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
