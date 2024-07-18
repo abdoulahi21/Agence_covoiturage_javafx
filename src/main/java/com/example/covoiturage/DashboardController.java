@@ -50,14 +50,14 @@ public class DashboardController implements Initializable {
     }
 
     public void piechart() {
-        Utilisateur utilisateur=new Utilisateur();
-        Long id=utilisateur.getId();
-        TrajetRepository trajetRepository=new TrajetRepository();
-        Map<Month, Integer> revenusParMois = trajetRepository.getRevenusParMois(id);
-        // Ajout des données au PieChart
-        for (Map.Entry<Month, Integer> entry : revenusParMois.entrySet()) {
-            piechart.getData().add(new PieChart.Data(entry.getKey().toString(), entry.getValue()));
+        //Le montant gagné par mois par un conducteur (Diagramme en cercle)
+        TrajetRepository trajetRepository = new TrajetRepository();
+        Map<Month, Integer> montantGagneParMois = trajetRepository.getRevenusParMois();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        for (Map.Entry<Month, Integer> entry : montantGagneParMois.entrySet()) {
+            pieChartData.add(new PieChart.Data(entry.getKey().toString(), entry.getValue()));
         }
+        piechart.setData(pieChartData);
     }
 
     @Override

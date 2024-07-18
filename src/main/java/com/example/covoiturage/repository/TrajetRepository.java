@@ -84,33 +84,18 @@ public class TrajetRepository {
         }
         return trajetsParMois;
     }
-    public Map<Month, Integer> getRevenusParMois(Long conducteurId) {
+    public Map<Month, Integer> getRevenusParMois() {
         EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Object[]> result;
-        try {
-            entityManager.getTransaction().begin();
-            result = entityManager.createQuery(
-                            "SELECT FUNCTION('MONTH', t.dateHeureDepart), SUM(r.placesReservees * t.tarif) " +
-                                    "FROM Reservation r JOIN r.trajet t " +
-                                    "WHERE t.conducteur.id = :conducteurId " +
-                                    "GROUP BY FUNCTION('MONTH', t.dateHeureDepart)",
-                            Object[].class)
-                    .setParameter("conducteurId", conducteurId)
-                    .getResultList();
-            entityManager.getTransaction().commit();
-        } finally {
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
-            }
-            entityManager.close();
-        }
-
+        entityManager.getTransaction().begin();
+        List<Object[]> result = entityManager.createQuery("SELECT MONTH(t.dateHeureDepart), SUM(t.tarif) FROM Trajet t GROUP BY MONTH(t.dateHeureDepart)").getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
         Map<Month, Integer> revenusParMois = new HashMap<>();
         for (Object[] objects : result) {
             int month = ((Number) objects[0]).intValue();
-            int revenue = ((Number) objects[1]).intValue();
-            revenusParMois.put(Month.of(month), revenue);
+            int sum = ((Number) objects[1]).intValue();
+            revenusParMois.put(Month.of(month), sum);
         }
         return revenusParMois;
     }
