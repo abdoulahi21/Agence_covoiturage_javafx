@@ -4,19 +4,87 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="504.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covoiturage.DashboardController">
    <children>
-      <BarChart fx:id="barchart" layoutX="31.0" layoutY="14.0" prefHeight="241.0" prefWidth="599.0">
+      <BarChart fx:id="barchart" layoutX="29.0" layoutY="148.0" prefHeight="139.0" prefWidth="599.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" />
         </yAxis>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.7368420958518982" green="0.7231968641281128" blue="0.7231968641281128" />
+               </color>
+            </DropShadow>
+         </effect>
       </BarChart>
-      <PieChart fx:id="piechart" layoutX="70.0" layoutY="253.0" prefHeight="241.0" prefWidth="551.0" />
+      <PieChart fx:id="piechart" layoutX="70.0" layoutY="315.0" prefHeight="179.0" prefWidth="551.0" />
+      <Pane layoutX="8.0" layoutY="21.0" prefHeight="76.0" prefWidth="202.0" style="-fx-background-color: skyblue; -fx-border-radius: 50px;">
+         <children>
+            <Label fx:id="nbUser" layoutX="12.0" layoutY="10.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="nbCon" layoutX="13.0" layoutY="29.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label fx:id="nbPas" layoutX="14.0" layoutY="50.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.48245614767074585" green="0.46309831738471985" blue="0.46309831738471985" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Pane>
+      <Pane layoutX="222.0" layoutY="22.0" prefHeight="76.0" prefWidth="202.0" style="-fx-background-color: skyblue; -fx-border-radius: 50px;">
+         <children>
+            <Label fx:id="nbRes" layoutX="18.0" layoutY="14.0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.48245614767074585" green="0.46309831738471985" blue="0.46309831738471985" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Pane>
+      <Pane layoutX="435.0" layoutY="21.0" prefHeight="76.0" prefWidth="202.0" style="-fx-background-color: skyblue; -fx-border-radius: 50px;">
+         <children>
+            <Label fx:id="nbtrajet" layoutX="16.0" layoutY="14.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.48245614767074585" green="0.46309831738471985" blue="0.46309831738471985" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Pane>
    </children>
 </AnchorPane>

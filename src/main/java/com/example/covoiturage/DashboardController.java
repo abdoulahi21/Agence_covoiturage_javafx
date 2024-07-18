@@ -1,7 +1,10 @@
 package com.example.covoiturage;
 
+import com.example.covoiturage.model.Trajet;
 import com.example.covoiturage.model.Utilisateur;
+import com.example.covoiturage.repository.ReservationRepository;
 import com.example.covoiturage.repository.TrajetRepository;
+import com.example.covoiturage.repository.UtilisateurRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import javafx.collections.FXCollections;
@@ -10,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
+import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -23,8 +27,19 @@ public class DashboardController implements Initializable {
     private BarChart<String, Number> barchart;
 
     @FXML
+    private Label nbCon;
+
+    @FXML
+    private Label nbPas;
+    @FXML
+    private Label nbUser;
+    @FXML
+    private Label nbRes;
+    @FXML
+    private Label nbtrajet;
+    @FXML
     private PieChart piechart;
-    /*public void chargerBarChart() {
+    public void chargerBarChart() {
         TrajetRepository trajetRepository = new TrajetRepository();
         Map<Month, Integer> trajetsParMois = trajetRepository.getTrajetsParMois();
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -33,11 +48,30 @@ public class DashboardController implements Initializable {
         }
         barchart.getData().add(series);
     }
-*/
+
+    public void piechart() {
+        Utilisateur utilisateur=new Utilisateur();
+        Long id=utilisateur.getId();
+        TrajetRepository trajetRepository=new TrajetRepository();
+        Map<Month, Integer> revenusParMois = trajetRepository.getRevenusParMois(id);
+        // Ajout des données au PieChart
+        for (Map.Entry<Month, Integer> entry : revenusParMois.entrySet()) {
+            piechart.getData().add(new PieChart.Data(entry.getKey().toString(), entry.getValue()));
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //chargerBarChart();
+        UtilisateurRepository utilisateurRepository = new UtilisateurRepository();
+        ReservationRepository reservationRepository = new ReservationRepository();
+        TrajetRepository trajetRepository = new TrajetRepository();
+        chargerBarChart();
+        piechart();
+        nbUser.setText("Nombre d'utilisateurs: "+utilisateurRepository.countUtilisateur());
+        nbRes.setText("Nombre de réservations : "+reservationRepository.countReservation());
+        nbtrajet.setText("Nombre de trajets : "+trajetRepository.countTrajet());
+        nbCon.setText("Nombre de conducteurs : "+utilisateurRepository.countUtilisateurConducteur());
+        nbPas.setText("Nombre de passagers : "+utilisateurRepository.countUtilisateurPassager());
     }
 
 }

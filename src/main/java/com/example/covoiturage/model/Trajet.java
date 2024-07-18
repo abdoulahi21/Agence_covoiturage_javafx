@@ -19,7 +19,6 @@ public class Trajet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String depart;
     private String destination;
     private LocalDate dateHeureDepart;
@@ -37,6 +36,9 @@ public class Trajet {
     public String toString() {
         return depart +"-"+ destination + "-"+ dateHeureDepart +"-"+ heureDepart +"-"+ placesDisponibles +"place(s)-"+ tarif+"FCFA"
                 ;
+    }
+    public Long getConducteurId(){
+        return conducteur.getId();
     }
     // Getters and setters
 }

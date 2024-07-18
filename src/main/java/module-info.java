@@ -5,6 +5,7 @@ module com.example.covoiturage {
     requires org.hibernate.orm.core;
     requires jasperreports;
     requires static lombok;
+    requires java.mail;
 
     opens com.example.covoiturage.repository;
     opens com.example.covoiturage.model;

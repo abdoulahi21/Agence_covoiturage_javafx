@@ -19,7 +19,8 @@ import java.util.ResourceBundle;
 public class HelloController implements Initializable {
     @FXML
     private AnchorPane dynamiquePage;
-
+    @FXML
+    private Label user;
 
     @FXML
     void pageVehicule(ActionEvent event) throws Exception {
@@ -60,7 +61,7 @@ public class HelloController implements Initializable {
         alert.showAndWait();
         if(alert.getResult().getText().equals("OK"))
         {
-            Parent fxml= FXMLLoader.load(getClass().getResource("login.fxml"));
+            Parent fxml= FXMLLoader.load(getClass().getResource("login-view.fxml"));
             Scene scene = new Scene(fxml);
             Stage stage=(Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setTitle("Login");
@@ -84,6 +85,6 @@ public class HelloController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+        user.setText("Bienvenue "+loggedInUser.toString());
     }
 }

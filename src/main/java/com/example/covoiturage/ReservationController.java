@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.hibernate.boot.registry.selector.spi.StrategyCreator;
 
 import java.net.URL;
 import java.util.List;
@@ -27,16 +28,27 @@ public class ReservationController implements Initializable {
     private ComboBox<Trajet> combo;
     @FXML
     private TableColumn<?, ?> colDepart;
+    @FXML
+    private TableColumn<?, ?> colDepart1;
+    @FXML
+    private TableColumn<?, ?> colDepart11;
 
     @FXML
     private TableColumn<?, ?> colDestination;
-
+    @FXML
+    private TableColumn<?, ?> colDestination1;
+    @FXML
+    private TableColumn<?, ?> colDestination11;
     @FXML
     private TableColumn<?, ?> colHeure;
-
+    @FXML
+    private TableColumn<?, ?> colHeure1;
+    @FXML
+    private TableColumn<?, ?> colHeure11;
     @FXML
     private TableColumn<?, ?> colJour;
-
+    @FXML
+    private TableColumn<?, ?> colEtat;
     @FXML
     private TableColumn<?, ?> colPassager;
 
@@ -46,12 +58,43 @@ public class ReservationController implements Initializable {
     @FXML
     private TableColumn<?, ?> colnbPlaces;
     @FXML
+    private TableColumn<?, ?> colJour1;
+    @FXML
+    private TableColumn<?, ?> colEtat1;
+    @FXML
+    private TableColumn<?, ?> colPassager1;
+
+    @FXML
+    private TableColumn<?, ?> colTarif1;
+
+    @FXML
+    private TableColumn<?, ?> colnbPlaces1;
+    @FXML
+    private TableColumn<?, ?> colJour11;
+    @FXML
+    private TableColumn<?, ?> colEtat11;
+    @FXML
+    private TableColumn<?, ?> colPassager11;
+
+    @FXML
+    private TableColumn<?, ?> colTarif11;
+
+    @FXML
+    private TableColumn<?, ?> colnbPlaces11;
+    @FXML
     private TableView<Reservation> tableReservation;
+
+    @FXML
+    private TableView<Reservation> tableReservationEncours;
+    @FXML
+    private TableView<Reservation> tableReservationTerminé;
+
     @FXML
     private Tab encours;
 
     @FXML
     private Tab passee;
+
 
     @FXML
     private Tab termine;
@@ -59,26 +102,72 @@ public class ReservationController implements Initializable {
     void btnReservez(ActionEvent event) {
         Utilisateur loggedInUser = UserSession.getInstance().getLoggedInUser();
         String placeReserve = champPlaceReserve.getText();
-        Trajet route = combo.getValue();
+        Trajet route = combo.getValue(); // Récupère le trajet sélectionné
+
+        if (route == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Erreur de sélection");
+            alert.setContentText("Veuillez sélectionner un trajet.");
+            alert.showAndWait();
+            return;
+        }
+
+        int placesDisponibles = route.getPlacesDisponibles();
+
+        if (placeReserve == null || placeReserve.isEmpty() || !placeReserve.matches("\\d+")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Erreur de réservation");
+            alert.setContentText("Veuillez entrer un nombre valide de places à réserver.");
+            alert.showAndWait();
+            return;
+        }
+
+        int placesReservees = Integer.parseInt(placeReserve);
+
+        if (placesReservees > placesDisponibles) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Erreur de réservation");
+            alert.setContentText("Le nombre de places réservé est supérieur au nombre de places disponibles.");
+            alert.showAndWait();
+            return;
+        }
+
         EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         ReservationRepository reservationRepository = new ReservationRepository();
+
         try {
+            entityManager.getTransaction().begin();
+
             Reservation reservation = new Reservation();
-            reservation.setPlacesReservees(Integer.parseInt(placeReserve));
+            reservation.setPlacesReservees(placesReservees);
             reservation.setTrajet(route);
             reservation.setPassager(loggedInUser);
             reservation.setEtat("en cours");
             reservationRepository.addReservation(reservation);
-        }
-        catch (Exception e) {
+
+            // Met à jour le nombre de places disponibles dans le trajet
+            route.setPlacesDisponibles(placesDisponibles - placesReservees);
+            entityManager.merge(route);
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
             e.printStackTrace();
-        }finally {
+        } finally {
             entityManager.close();
         }
+
         affiche();
         btnClear(event);
+        // EmailSender.sendEmail("to@example.com", "Test Subject", "Test Content");
     }
+
     @FXML
     void btnClear(ActionEvent event) {
         champPlaceReserve.clear();
@@ -91,13 +180,14 @@ public class ReservationController implements Initializable {
         try {
             List<Reservation> reservations = reservationRepository.getAllReservation();
             ObservableList<Reservation> res = FXCollections.observableArrayList(reservations);
-            colDepart.setCellValueFactory(new PropertyValueFactory<>("trajet.depart"));
-            colDestination.setCellValueFactory(new PropertyValueFactory<>("trajet.destination"));
-            colHeure.setCellValueFactory(new PropertyValueFactory<>("trajet.heureDepart"));
-            colJour.setCellValueFactory(new PropertyValueFactory<>("trajet.dateHeureDepart"));
+            colDepart.setCellValueFactory(new PropertyValueFactory<>("trajetDepart"));
+            colDestination.setCellValueFactory(new PropertyValueFactory<>("trajetDestination"));
+            colHeure.setCellValueFactory(new PropertyValueFactory<>("trajetHeure"));
+            colJour.setCellValueFactory(new PropertyValueFactory<>("trajetDateDepart"));
             colPassager.setCellValueFactory(new PropertyValueFactory<>("passager"));
-            colTarif.setCellValueFactory(new PropertyValueFactory<>("trajet.tarif"));
             colnbPlaces.setCellValueFactory(new PropertyValueFactory<>("placesReservees"));
+            colTarif.setCellValueFactory(new PropertyValueFactory<>("trajetTarif"));
+            colEtat.setCellValueFactory(new PropertyValueFactory<>("etat"));
             tableReservation.setItems(res);
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,10 +195,56 @@ public class ReservationController implements Initializable {
             entityManager.close();
         }
     }
+    public void afficheEncours(){
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        ReservationRepository reservationRepository = new ReservationRepository();
+        try {
+            List<Reservation> reservations = reservationRepository.getAllReservationStarted();
+            ObservableList<Reservation> encours = FXCollections.observableArrayList(reservations);
+            colDepart1.setCellValueFactory(new PropertyValueFactory<>("trajetDepart"));
+            colDestination1.setCellValueFactory(new PropertyValueFactory<>("trajetDestination"));
+            colHeure1.setCellValueFactory(new PropertyValueFactory<>("trajetHeure"));
+            colJour1.setCellValueFactory(new PropertyValueFactory<>("trajetDateDepart"));
+            colPassager1.setCellValueFactory(new PropertyValueFactory<>("passager"));
+            colnbPlaces1.setCellValueFactory(new PropertyValueFactory<>("placesReservees"));
+            colTarif1.setCellValueFactory(new PropertyValueFactory<>("trajetTarif"));
+            colEtat1.setCellValueFactory(new PropertyValueFactory<>("etat"));
+            tableReservationEncours.setItems(encours);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+    public void afficheTerminé(){
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        ReservationRepository reservationRepository = new ReservationRepository();
+        try {
+            List<Reservation> reservations = reservationRepository.getAllReservationFinished();
+            ObservableList<Reservation> terminé = FXCollections.observableArrayList(reservations);
+            colDepart11.setCellValueFactory(new PropertyValueFactory<>("trajetDepart"));
+            colDestination11.setCellValueFactory(new PropertyValueFactory<>("trajetDestination"));
+            colHeure11.setCellValueFactory(new PropertyValueFactory<>("trajetHeure"));
+            colJour11.setCellValueFactory(new PropertyValueFactory<>("trajetDateDepart"));
+            colPassager11.setCellValueFactory(new PropertyValueFactory<>("passager"));
+            colnbPlaces11.setCellValueFactory(new PropertyValueFactory<>("placesReservees"));
+            colTarif11.setCellValueFactory(new PropertyValueFactory<>("trajetTarif"));
+            colEtat11.setCellValueFactory(new PropertyValueFactory<>("etat"));
+            tableReservationTerminé.setItems(terminé);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         affiche();
+        afficheEncours();
         TrajetRepository trajetRepository = new TrajetRepository();
         List<Trajet> trajets = trajetRepository.getAllTrajet();
         ObservableList<Trajet> res = FXCollections.observableArrayList(trajets);

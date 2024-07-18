@@ -31,6 +31,6 @@
       <Button layoutX="337.0" layoutY="203.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="25.0" prefWidth="71.0" text="Annuler" />
       <Label layoutX="380.0" layoutY="115.0" text="Nombre de Places" />
       <TextField fx:id="champNombreplace" layoutX="380.0" layoutY="140.0" prefHeight="25.0" prefWidth="215.0" />
-      <TextField fx:id="champcherche" layoutX="477.0" layoutY="204.0" onKeyPressed="#onsearch" promptText="Recherche" />
+      <TextField fx:id="champcherche" layoutX="444.0" layoutY="204.0" onKeyReleased="#onsearch" promptText="Recherche" />
    </children>
 </AnchorPane>

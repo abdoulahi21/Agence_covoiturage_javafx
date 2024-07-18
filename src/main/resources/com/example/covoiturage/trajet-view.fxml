@@ -37,5 +37,6 @@
       <TextField fx:id="champTarif" layoutX="380.0" layoutY="178.0" prefHeight="25.0" prefWidth="215.0" promptText="tarif" />
       <Label layoutX="52.0" layoutY="157.0" text="Heure de Départ" />
       <Label layoutX="380.0" layoutY="157.0" text="Tarif de Voyage" />
+      <TextField fx:id="champcherche" layoutX="445.0" layoutY="228.0" onKeyReleased="#onsearch" promptText="Recherche" />
    </children>
 </AnchorPane>

@@ -2,7 +2,9 @@ package com.example.covoiturage;
 
 import com.example.covoiturage.model.Trajet;
 import com.example.covoiturage.model.Utilisateur;
+import com.example.covoiturage.model.Vehicule;
 import com.example.covoiturage.repository.TrajetRepository;
+import com.example.covoiturage.repository.VehiculeRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import javafx.collections.FXCollections;
@@ -15,6 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -45,7 +48,8 @@ public class TrajetController implements Initializable{
     private TableColumn<?, ?> colDestination;
     @FXML
     private TableColumn<?, ?> colDate;
-
+    @FXML
+    private TextField champcherche;
     @FXML
     private TableColumn<?, ?> colNombrePlacesDispo;
 
@@ -92,6 +96,7 @@ public class TrajetController implements Initializable{
             champDepart.setText(trajet.getDepart());
             champDestibation.setText(trajet.getDestination());
             champNombreplacedispo.setText(String.valueOf(trajet.getPlacesDisponibles()));
+            champTarif.setText(String.valueOf(trajet.getTarif()));
         };
     }
     public void afficherTrajet() {
@@ -149,7 +154,7 @@ public class TrajetController implements Initializable{
         String destination = champDestibation.getText();
         String heure = champHeure.getText();
         String tarif=champTarif.getText();
-        String nombrePlacedispo = champNombreplacedispo.getText();
+        int nombrePlacedispo = Integer.parseInt(champNombreplacedispo.getText());
         String date = Date.getValue().toString();
         EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -159,7 +164,7 @@ public class TrajetController implements Initializable{
             trajet.setId(id);
             trajet.setDepart(depart);
             trajet.setDestination(destination);
-            trajet.setPlacesDisponibles(Integer.parseInt(nombrePlacedispo));
+            trajet.setPlacesDisponibles(nombrePlacedispo);
             trajet.setHeureDepart(heure);
             trajet.setDateHeureDepart(LocalDate.parse(date));
             trajet.setTarif(Integer.parseInt(tarif));
@@ -172,7 +177,28 @@ public class TrajetController implements Initializable{
         btnClear(event);
         afficherTrajet();
     }
-
+    @FXML
+    void onsearch(KeyEvent event) {
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        TrajetRepository trajetRepository = new TrajetRepository();
+        try{
+            List<Trajet> list = trajetRepository.searchVehicule(champcherche.getText());
+            ObservableList<Trajet> trajetObservableList = FXCollections.observableArrayList(list);
+            colConducteur.setCellValueFactory(new PropertyValueFactory<>("conducteur"));
+            colDate.setCellValueFactory(new PropertyValueFactory<>("dateHeureDepart"));
+            colHeuredepart.setCellValueFactory(new PropertyValueFactory<>("heureDepart"));
+            colNombrePlacesDispo.setCellValueFactory(new PropertyValueFactory<>("placesDisponibles"));
+            colTrajet.setCellValueFactory(new PropertyValueFactory<>("depart"));
+            colDestination.setCellValueFactory(new PropertyValueFactory<>("destination"));
+            colTarif.setCellValueFactory(new PropertyValueFactory<>("tarif"));
+            tableTrajet.setItems(trajetObservableList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            entityManager.close();
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         afficherTrajet();

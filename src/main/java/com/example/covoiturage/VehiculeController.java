@@ -150,6 +150,24 @@ public class VehiculeController implements Initializable {
 
     @FXML
     void onsearch(KeyEvent event) {
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        VehiculeRepository vehiculeRepository = new VehiculeRepository();
+      try{
+          List<Vehicule> list = vehiculeRepository.searchVehicule(champcherche.getText());
+            ObservableList<Vehicule> vehiculeObservableList = FXCollections.observableArrayList(list);
+            colMarque.setCellValueFactory(new PropertyValueFactory<>("marque"));
+            colModel.setCellValueFactory(new PropertyValueFactory<>("modele"));
+            colMatricule.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
+            colNombrePlaces.setCellValueFactory(new PropertyValueFactory<>("nombrePlaces"));
+            colConducteur.setCellValueFactory(new PropertyValueFactory<>("conducteur"));
+            colid.setCellValueFactory(new PropertyValueFactory<>("id"));
+            tableVehicule.setItems(vehiculeObservableList);
+      }catch (Exception e){
+          e.printStackTrace();
+        }finally {
+          entityManager.close();
+      }
     }
     public void afficherVehicule() {
             EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();

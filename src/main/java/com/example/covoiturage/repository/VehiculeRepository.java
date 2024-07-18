@@ -48,14 +48,13 @@ public class VehiculeRepository {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
-    public void searchVehicule(String search){
+    public List<Vehicule> searchVehicule(String search){
         EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-           entityManager.createQuery("from Vehicule where marque like :search or modele like :search or immatriculation like :search")
-                    .setParameter("search", search)
-                    .getResultList();
+        List<Vehicule> vehicule = entityManager.createQuery("from Vehicule v where v.marque like :search or v.modele like :search or v.immatriculation like :search", Vehicule.class).setParameter("search", "%"+search+"%").getResultList();
         entityManager.getTransaction().commit();
         entityManager.close();
+        return vehicule;
     }
 }
