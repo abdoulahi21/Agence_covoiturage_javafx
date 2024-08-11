@@ -19,6 +19,4 @@ public class JpaUtil {
             entityManagerFactory.close();
         }
     }
-
-
 }

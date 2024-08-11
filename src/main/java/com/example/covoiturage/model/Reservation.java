@@ -27,6 +27,7 @@ public class Reservation {
 
     private int placesReservees;
     private String etat;
+    private int total;
     // Getters and setters
 
     public Utilisateur getPassagerId() {

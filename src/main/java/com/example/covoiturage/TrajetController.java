@@ -12,10 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -60,31 +57,33 @@ public class TrajetController implements Initializable{
     @FXML
     void btnAdd(ActionEvent event) {
         Utilisateur loggedInUser = UserSession.getInstance().getLoggedInUser();
-        String date = Date.getValue().toString();
-        String heure = champHeure.getText();
-        String depart = champDepart.getText();
-        String destination = champDestibation.getText();
-        String nombrePlaceDispo = champNombreplacedispo.getText();
-        String tarif=champTarif.getText();
-        EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        TrajetRepository trajetRepository = new TrajetRepository();
-        try {
-            Trajet trajet = new Trajet();
-            trajet.setDateHeureDepart(LocalDate.parse(date));
-            trajet.setDepart(depart);
-            trajet.setDestination(destination);
-            trajet.setPlacesDisponibles(Integer.parseInt(nombrePlaceDispo));
-            trajet.setHeureDepart(heure);
-            trajet.setTarif(Integer.parseInt(tarif));
-            trajet.setConducteur(loggedInUser);
-            trajetRepository.addTrajet(trajet);
-            afficherTrajet();
+        if(loggedInUser.getRole().equals("conducteur")) {
+            String depart = champDepart.getText();
+            String destination = champDestibation.getText();
+            String heure = champHeure.getText();
+            String tarif = champTarif.getText();
+            int nombrePlacedispo = Integer.parseInt(champNombreplacedispo.getText());
+            String date = Date.getValue().toString();
+            EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            TrajetRepository trajetRepository = new TrajetRepository();
+            try {
+                Trajet trajet = new Trajet();
+                trajet.setDepart(depart);
+                trajet.setDestination(destination);
+                trajet.setPlacesDisponibles(nombrePlacedispo);
+                trajet.setHeureDepart(heure);
+                trajet.setDateHeureDepart(LocalDate.parse(date));
+                trajet.setTarif(Integer.parseInt(tarif));
+                trajet.setConducteur(loggedInUser);
+                trajetRepository.addTrajet(trajet);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                entityManager.close();
+            }
             btnClear(event);
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            entityManager.close();
+            afficherTrajet();
         }
     }
     @FXML
@@ -133,49 +132,67 @@ public class TrajetController implements Initializable{
 
     @FXML
     void btnDelete(ActionEvent event) {
-        Long id = tableTrajet.getSelectionModel().getSelectedItem().getId();
-        EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        TrajetRepository trajetRepository = new TrajetRepository();
-        try {
-            trajetRepository.deleteTrajet(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            entityManager.close();
+        Utilisateur loggedInUser = UserSession.getInstance().getLoggedInUser();
+        if(loggedInUser.getRole().equals("conducteur")) {
+            Long id = tableTrajet.getSelectionModel().getSelectedItem().getId();
+            EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            TrajetRepository trajetRepository = new TrajetRepository();
+            try {
+                trajetRepository.deleteTrajet(id);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                entityManager.close();
+            }
+            btnClear(event);
+            afficherTrajet();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Accès refusé");
+            alert.setHeaderText("Vous n'avez pas les droits nécessaires pour effectuer cette action");
+            alert.showAndWait();
         }
-        afficherTrajet();
     }
 
     @FXML
     void btnUpdate(ActionEvent event) {
-        Long id = tableTrajet.getSelectionModel().getSelectedItem().getId();
-        String depart = champDepart.getText();
-        String destination = champDestibation.getText();
-        String heure = champHeure.getText();
-        String tarif=champTarif.getText();
-        int nombrePlacedispo = Integer.parseInt(champNombreplacedispo.getText());
-        String date = Date.getValue().toString();
-        EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        TrajetRepository trajetRepository = new TrajetRepository();
-        try {
-            Trajet trajet = new Trajet();
-            trajet.setId(id);
-            trajet.setDepart(depart);
-            trajet.setDestination(destination);
-            trajet.setPlacesDisponibles(nombrePlacedispo);
-            trajet.setHeureDepart(heure);
-            trajet.setDateHeureDepart(LocalDate.parse(date));
-            trajet.setTarif(Integer.parseInt(tarif));
-            trajetRepository.updateTrajet(trajet);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            entityManager.close();
+        Utilisateur loggedInUser = UserSession.getInstance().getLoggedInUser();
+        if(loggedInUser.getRole().equals("conducteur")) {
+            Long id = tableTrajet.getSelectionModel().getSelectedItem().getId();
+            String depart = champDepart.getText();
+            String destination = champDestibation.getText();
+            String heure = champHeure.getText();
+            String tarif = champTarif.getText();
+            int nombrePlacedispo = Integer.parseInt(champNombreplacedispo.getText());
+            String date = Date.getValue().toString();
+            EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            TrajetRepository trajetRepository = new TrajetRepository();
+            try {
+                Trajet trajet = new Trajet();
+                trajet.setId(id);
+                trajet.setDepart(depart);
+                trajet.setDestination(destination);
+                trajet.setPlacesDisponibles(nombrePlacedispo);
+                trajet.setHeureDepart(heure);
+                trajet.setDateHeureDepart(LocalDate.parse(date));
+                trajet.setTarif(Integer.parseInt(tarif));
+                trajet.setConducteur(loggedInUser);
+                trajetRepository.updateTrajet(trajet);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                entityManager.close();
+            }
+            btnClear(event);
+            afficherTrajet();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Accès refusé");
+            alert.setHeaderText("Vous n'avez pas les droits nécessaires pour effectuer cette action");
+            alert.showAndWait();
         }
-        btnClear(event);
-        afficherTrajet();
     }
     @FXML
     void onsearch(KeyEvent event) {

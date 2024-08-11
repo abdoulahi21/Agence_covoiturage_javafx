@@ -13,30 +13,31 @@
 
 <AnchorPane prefHeight="504.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covoiturage.DashboardController">
    <children>
-      <BarChart fx:id="barchart" layoutX="29.0" layoutY="112.0" prefHeight="211.0" prefWidth="599.0" title="Le nombre de trajet du mois par un conducteur">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
+      <BarChart fx:id="barchart" layoutX="29.0" layoutY="112.0" prefHeight="211.0" prefWidth="599.0" title="Le nombre de trajets du mois par un conducteur">
+         <xAxis>
+            <CategoryAxis label="Mois" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis label="Nombre de trajets" side="LEFT" />
+         </yAxis>
          <effect>
-            <DropShadow>
+            <DropShadow offsetX="5" offsetY="5" radius="10">
                <color>
-                  <Color red="0.7368420958518982" green="0.7231968641281128" blue="0.7231968641281128" />
+                  <Color red="0.0" green="0.0" blue="0.0" opacity="0.3" />
                </color>
             </DropShadow>
          </effect>
       </BarChart>
       <PieChart fx:id="piechart" layoutX="70.0" layoutY="317.0" prefHeight="176.0" prefWidth="551.0" title="Le montant gagné par mois par un conducteur">
          <effect>
-            <DropShadow>
+            <DropShadow offsetX="5" offsetY="5" radius="10">
                <color>
-                  <Color red="0.8421052694320679" green="0.8239116072654724" blue="0.8239116072654724" />
+                  <Color red="0.0" green="0.0" blue="0.0" opacity="0.3" />
                </color>
             </DropShadow>
-         </effect></PieChart>
-      <Pane layoutX="14.0" layoutY="21.0" prefHeight="76.0" prefWidth="202.0" style="-fx-background-color: skyblue; -fx-border-radius: 50px;">
+         </effect>
+      </PieChart>
+      <Pane layoutX="14.0" layoutY="21.0" prefHeight="76.0" prefWidth="202.0" style="-fx-background-color: linear-gradient(to bottom right, #4A90E2, #50A3F1); -fx-background-radius: 15; -fx-border-radius: 15;">
          <children>
             <Label fx:id="nbUser" layoutX="12.0" layoutY="10.0" textFill="WHITE">
                <font>
@@ -45,23 +46,24 @@
             </Label>
             <Label fx:id="nbCon" layoutX="13.0" layoutY="29.0" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="14.0" />
-               </font></Label>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
             <Label fx:id="nbPas" layoutX="14.0" layoutY="50.0" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </Label>
          </children>
          <effect>
-            <DropShadow>
+            <DropShadow offsetX="3" offsetY="3" radius="10">
                <color>
-                  <Color red="0.48245614767074585" green="0.46309831738471985" blue="0.46309831738471985" />
+                  <Color red="0.0" green="0.0" blue="0.0" opacity="0.3" />
                </color>
             </DropShadow>
          </effect>
       </Pane>
-      <Pane layoutX="228.0" layoutY="22.0" prefHeight="76.0" prefWidth="202.0" style="-fx-background-color: skyblue; -fx-border-radius: 50px;">
+      <Pane layoutX="228.0" layoutY="22.0" prefHeight="76.0" prefWidth="202.0" style="-fx-background-color: linear-gradient(to bottom right, #4A90E2, #50A3F1); -fx-background-radius: 15; -fx-border-radius: 15;">
          <children>
             <Label fx:id="nbRes" layoutX="18.0" layoutY="14.0" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -70,14 +72,14 @@
             </Label>
          </children>
          <effect>
-            <DropShadow>
+            <DropShadow offsetX="3" offsetY="3" radius="10">
                <color>
-                  <Color red="0.48245614767074585" green="0.46309831738471985" blue="0.46309831738471985" />
+                  <Color red="0.0" green="0.0" blue="0.0" opacity="0.3" />
                </color>
             </DropShadow>
          </effect>
       </Pane>
-      <Pane layoutX="441.0" layoutY="21.0" prefHeight="76.0" prefWidth="202.0" style="-fx-background-color: skyblue; -fx-border-radius: 50px;">
+      <Pane layoutX="441.0" layoutY="21.0" prefHeight="76.0" prefWidth="202.0" style="-fx-background-color: linear-gradient(to bottom right, #4A90E2, #50A3F1); -fx-background-radius: 15; -fx-border-radius: 15;">
          <children>
             <Label fx:id="nbtrajet" layoutX="16.0" layoutY="14.0" textFill="WHITE">
                <font>
@@ -86,9 +88,9 @@
             </Label>
          </children>
          <effect>
-            <DropShadow>
+            <DropShadow offsetX="3" offsetY="3" radius="10">
                <color>
-                  <Color red="0.48245614767074585" green="0.46309831738471985" blue="0.46309831738471985" />
+                  <Color red="0.0" green="0.0" blue="0.0" opacity="0.3" />
                </color>
             </DropShadow>
          </effect>

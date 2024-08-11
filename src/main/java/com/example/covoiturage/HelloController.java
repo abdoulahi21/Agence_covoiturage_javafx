@@ -23,23 +23,60 @@ public class HelloController implements Initializable {
     private Label user;
 
     @FXML
+    void pageUtilisateur(ActionEvent event) throws Exception {
+        Utilisateur loggedInUser = UserSession.getInstance().getLoggedInUser();
+        if (loggedInUser.getRole().equals("admin")) {
+            Parent fxml = FXMLLoader.load(getClass().getResource("utilisateur-view.fxml"));
+            dynamiquePage.getChildren().removeAll();
+            dynamiquePage.getChildren().setAll(fxml);
+        } else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Accès refusé");
+            alert.setHeaderText("Vous n'avez pas les droits nécessaires pour accéder à cette page");
+            alert.showAndWait();
+        }
+    }
+    @FXML
     void pageVehicule(ActionEvent event) throws Exception {
-        Parent fxml =  FXMLLoader.load(getClass().getResource("vehicule-view.fxml"));
-        dynamiquePage.getChildren().removeAll();
-        dynamiquePage.getChildren().setAll(fxml);
+        Utilisateur loggedInUser = UserSession.getInstance().getLoggedInUser();
+        if(loggedInUser.getRole().equals("conducteur")|| loggedInUser.getRole().equals("admin")) {
+            Parent fxml = FXMLLoader.load(getClass().getResource("vehicule-view.fxml"));
+            dynamiquePage.getChildren().removeAll();
+            dynamiquePage.getChildren().setAll(fxml);
+        } else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Accès refusé");
+            alert.setHeaderText("Vous n'avez pas les droits nécessaires pour accéder à cette page");
+            alert.showAndWait();
+        }
     }
     @FXML
     void pageTrajet(ActionEvent event) throws Exception {
-        Parent fxml =  FXMLLoader.load(getClass().getResource("trajet-view.fxml"));
-        dynamiquePage.getChildren().removeAll();
-        dynamiquePage.getChildren().setAll(fxml);
-
+        Utilisateur loggedInUser = UserSession.getInstance().getLoggedInUser();
+       if(loggedInUser.getRole().equals("conducteur") || loggedInUser.getRole().equals("passager") || loggedInUser.getRole().equals("admin")) {
+           Parent fxml = FXMLLoader.load(getClass().getResource("trajet-view.fxml"));
+           dynamiquePage.getChildren().removeAll();
+           dynamiquePage.getChildren().setAll(fxml);
+       } else{
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+           alert.setTitle("Accès refusé");
+           alert.setHeaderText("Vous n'avez pas les droits nécessaires pour accéder à cette page");
+           alert.showAndWait();
+       }
     }
     @FXML
     void pageDashboard(ActionEvent event) throws Exception {
-        Parent fxml =  FXMLLoader.load(getClass().getResource("dashboard-view.fxml"));
-        dynamiquePage.getChildren().removeAll();
-        dynamiquePage.getChildren().setAll(fxml);
+        Utilisateur loggedInUser = UserSession.getInstance().getLoggedInUser();
+        if(loggedInUser.getRole().equals("admin")) {
+            Parent fxml = FXMLLoader.load(getClass().getResource("dashboard-view.fxml"));
+            dynamiquePage.getChildren().removeAll();
+            dynamiquePage.getChildren().setAll(fxml);
+        } else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Accès refusé");
+            alert.setHeaderText("Vous n'avez pas les droits nécessaires pour accéder à cette page");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -80,11 +117,33 @@ public class HelloController implements Initializable {
             System.out.println("Aucun utilisateur connecté");
         }
         //affiche la page vehicule par defaut
-        try {
-            pageDashboard(new ActionEvent());
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(loggedInUser.getRole().equals("admin")) {
+            try {
+                Parent fxml = FXMLLoader.load(getClass().getResource("dashboard-view.fxml"));
+                dynamiquePage.getChildren().removeAll();
+                dynamiquePage.getChildren().setAll(fxml);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        user.setText("Bienvenue "+loggedInUser.toString());
+        if (loggedInUser.getRole().equals("conducteur")) {
+            try {
+                Parent fxml = FXMLLoader.load(getClass().getResource("vehicule-view.fxml"));
+                dynamiquePage.getChildren().removeAll();
+                dynamiquePage.getChildren().setAll(fxml);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (loggedInUser.getRole().equals("passager")) {
+            try {
+                Parent fxml = FXMLLoader.load(getClass().getResource("reservation-view.fxml"));
+                dynamiquePage.getChildren().removeAll();
+                dynamiquePage.getChildren().setAll(fxml);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //user.setText("Bienvenue "+loggedInUser.toString());
     }
 }

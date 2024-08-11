@@ -7,6 +7,7 @@ import com.example.covoiturage.repository.ReservationRepository;
 import com.example.covoiturage.repository.TrajetRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -94,8 +95,7 @@ public class ReservationController implements Initializable {
 
     @FXML
     private Tab passee;
-
-
+    private int total;
     @FXML
     private Tab termine;
     @FXML
@@ -141,19 +141,29 @@ public class ReservationController implements Initializable {
 
         try {
             entityManager.getTransaction().begin();
-
             Reservation reservation = new Reservation();
             reservation.setPlacesReservees(placesReservees);
+            reservation.setTotal(placesReservees * route.getTarif());
             reservation.setTrajet(route);
             reservation.setPassager(loggedInUser);
             reservation.setEtat("en cours");
             reservationRepository.addReservation(reservation);
-
             // Met à jour le nombre de places disponibles dans le trajet
             route.setPlacesDisponibles(placesDisponibles - placesReservees);
             entityManager.merge(route);
-
             entityManager.getTransaction().commit();
+
+           // Exécuter l'envoi d'email dans un thread séparé
+            String recipient = reservation.getPassager().getEmail(); // Assurez-vous que l'email de l'utilisateur est disponible
+            String subject = "Confirmation de réservation";
+            String content = "Bonjour " + reservation.getPassager().getPrenom() + " " + reservation.getPassager().getNom() + ",\n\n" +
+                    "Votre réservation a été confirmée. Voici les détails de votre réservation:\n" +
+                    "Date: " + reservation.getTrajetDateDepart().toString() + "\n" +
+                    "Trajet: " + reservation.getTrajet().toString() + "\n" +
+                    "Nombre de places réservés: " + reservation.getPlacesReservees() + "\n" +
+                    "Tarif total: " + reservation.getTotal() + " FCFA\n\n" +
+                    "Merci d'utiliser notre service de covoiturage.";
+            EmailSender.sendEmail(recipient, subject, content);
         } catch (Exception e) {
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
@@ -165,7 +175,13 @@ public class ReservationController implements Initializable {
 
         affiche();
         btnClear(event);
-        // EmailSender.sendEmail("to@example.com", "Test Subject", "Test Content");
+        // Envoyer un email après avoir enregistré la réservation
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Réservation");
+        alert.setHeaderText("Réservation effectuée");
+        alert.setContentText("Votre réservation a été enregistrée avec succès.");
+        alert.showAndWait();
+
     }
 
     @FXML
@@ -186,7 +202,7 @@ public class ReservationController implements Initializable {
             colJour.setCellValueFactory(new PropertyValueFactory<>("trajetDateDepart"));
             colPassager.setCellValueFactory(new PropertyValueFactory<>("passager"));
             colnbPlaces.setCellValueFactory(new PropertyValueFactory<>("placesReservees"));
-            colTarif.setCellValueFactory(new PropertyValueFactory<>("trajetTarif"));
+            colTarif.setCellValueFactory(new PropertyValueFactory<>("total"));
             colEtat.setCellValueFactory(new PropertyValueFactory<>("etat"));
             tableReservation.setItems(res);
         } catch (Exception e) {
@@ -194,6 +210,40 @@ public class ReservationController implements Initializable {
         } finally {
             entityManager.close();
         }
+    }
+
+    @FXML
+    void btnchangeEtat(ActionEvent event) {
+        Utilisateur loggedInUser = UserSession.getInstance().getLoggedInUser();
+        if(loggedInUser.getRole().equals("conducteur") || loggedInUser.getRole().equals("admin")){
+            Reservation reservation = tableReservation.getSelectionModel().getSelectedItem();
+            EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            ReservationRepository reservationRepository = new ReservationRepository();
+            try {
+                entityManager.getTransaction().begin();
+                reservation.setEtat("terminé");
+                reservationRepository.updateReservation(reservation);
+                entityManager.getTransaction().commit();
+            } catch (Exception e) {
+                if (entityManager.getTransaction().isActive()) {
+                    entityManager.getTransaction().rollback();
+                }
+                e.printStackTrace();
+            } finally {
+                entityManager.close();
+            }
+            affiche();
+            afficheEncours();
+            afficheTerminé();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Erreur de changement d'état");
+            alert.setContentText("Vous n'avez pas les droits nécessaires pour changer l'état de la réservation.");
+            alert.showAndWait();
+        }
+
     }
     public void afficheEncours(){
         EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
@@ -245,6 +295,7 @@ public class ReservationController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         affiche();
         afficheEncours();
+        afficheTerminé();
         TrajetRepository trajetRepository = new TrajetRepository();
         List<Trajet> trajets = trajetRepository.getAllTrajet();
         ObservableList<Trajet> res = FXCollections.observableArrayList(trajets);

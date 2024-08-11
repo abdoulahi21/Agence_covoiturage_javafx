@@ -7,36 +7,37 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="504.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covoiturage.TrajetController">
+<AnchorPane prefHeight="504.0" prefWidth="657.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covoiturage.TrajetController">
    <children>
       <TableView fx:id="tableTrajet" layoutX="14.0" layoutY="261.0" onMouseClicked="#charge" prefHeight="243.0" prefWidth="642.0">
          <columns>
-            <TableColumn fx:id="colTrajet" prefWidth="121.33333837985992" text="Départ" />
-            <TableColumn fx:id="colDestination" prefWidth="125.33334350585938" text="Destination" />
-            <TableColumn fx:id="colDate" prefWidth="74.66665649414062" text="Date depart" />
-            <TableColumn fx:id="colHeuredepart" prefWidth="118.66665649414062" text="Heure depart" />
-            <TableColumn fx:id="colNombrePlacesDispo" minWidth="0.0" prefWidth="113.33334350585938" text="Places" />
-            <TableColumn fx:id="colTarif" minWidth="0.0" prefWidth="81.9998779296875" text="Tarif" />
+            <TableColumn fx:id="colTrajet" prefWidth="121.333" text="Départ" />
+            <TableColumn fx:id="colDestination" prefWidth="125.333" text="Destination" />
+            <TableColumn fx:id="colDate" prefWidth="74.667" text="Date départ" />
+            <TableColumn fx:id="colHeuredepart" prefWidth="118.667" text="Heure départ" />
+            <TableColumn fx:id="colNombrePlacesDispo" prefWidth="113.333" text="Places" />
+            <TableColumn fx:id="colTarif" prefWidth="81.999" text="Tarif" />
             <TableColumn fx:id="colConducteur" prefWidth="212.0" text="Conducteur" />
          </columns>
       </TableView>
-      <Label layoutX="52.0" layoutY="30.0" text="Depart" />
-      <Label layoutX="377.0" layoutY="30.0" text="Destination" />
-      <TextField fx:id="champDepart" layoutX="52.0" layoutY="57.0" prefHeight="25.0" prefWidth="215.0" />
-      <TextField fx:id="champDestibation" layoutX="379.0" layoutY="57.0" prefHeight="25.0" prefWidth="215.0" />
-      <Label layoutX="52.0" layoutY="94.0" text="Date et Heure de départ" />
-      <Button layoutX="66.0" layoutY="229.0" mnemonicParsing="false" onAction="#btnAdd" prefHeight="25.0" prefWidth="71.0" text="Ajouter" />
-      <Button layoutX="157.0" layoutY="229.0" mnemonicParsing="false" onAction="#btnDelete" text="Supprimer" />
-      <Button layoutX="248.0" layoutY="229.0" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="25.0" prefWidth="71.0" text="Modifier" />
-      <Button layoutX="337.0" layoutY="228.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="25.0" prefWidth="71.0" text="Annuler" />
-      <Label layoutX="380.0" layoutY="96.0" text="Nombre de Places disponnibles" />
-      <TextField fx:id="champNombreplacedispo" layoutX="380.0" layoutY="121.0" prefHeight="25.0" prefWidth="215.0" />
-      <DatePicker fx:id="Date" layoutX="52.0" layoutY="119.0" prefHeight="25.0" prefWidth="215.0" />
-      <TextField fx:id="champHeure" layoutX="52.0" layoutY="178.0" prefHeight="25.0" prefWidth="215.0" promptText="Heure de départ" />
-      <TextField fx:id="champTarif" layoutX="380.0" layoutY="178.0" prefHeight="25.0" prefWidth="215.0" promptText="tarif" />
-      <Label layoutX="52.0" layoutY="157.0" text="Heure de Départ" />
-      <Label layoutX="380.0" layoutY="157.0" text="Tarif de Voyage" />
-      <TextField fx:id="champcherche" layoutX="445.0" layoutY="228.0" onKeyReleased="#onsearch" promptText="Recherche" />
+      <Label layoutX="52.0" layoutY="30.0" text="Départ" />
+      <Label layoutX="377.0" layoutY="30.0" text="Destination"  />
+      <TextField fx:id="champDepart" layoutX="52.0" layoutY="57.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+      <TextField fx:id="champDestibation" layoutX="379.0" layoutY="57.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+      <Label layoutX="52.0" layoutY="94.0" text="Date et Heure de départ"  />
+      <Button layoutX="66.0" layoutY="229.0" mnemonicParsing="false" onAction="#btnAdd" prefHeight="25.0" prefWidth="71.0" text="Ajouter" style="-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-background-radius: 5;" />
+      <Button layoutX="157.0" layoutY="229.0" mnemonicParsing="false" onAction="#btnDelete" text="Supprimer" style="-fx-background-color: #FF6F61; -fx-text-fill: white; -fx-background-radius: 5;" />
+      <Button layoutX="248.0" layoutY="229.0" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="25.0" prefWidth="71.0" text="Modifier" style="-fx-background-color: #F0AD4E; -fx-text-fill: white; -fx-background-radius: 5;" />
+      <Button layoutX="337.0" layoutY="228.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="25.0" prefWidth="71.0" text="Annuler" style="-fx-background-color: #5BC0DE; -fx-text-fill: white; -fx-background-radius: 5;" />
+      <Label layoutX="380.0" layoutY="96.0" text="Nombre de Places disponibles" />
+      <TextField fx:id="champNombreplacedispo" layoutX="380.0" layoutY="121.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+      <DatePicker fx:id="Date" layoutX="52.0" layoutY="119.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+      <TextField fx:id="champHeure" layoutX="52.0" layoutY="178.0" prefHeight="25.0" prefWidth="215.0" promptText="Heure de départ" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+      <TextField fx:id="champTarif" layoutX="380.0" layoutY="178.0" prefHeight="25.0" prefWidth="215.0" promptText="Tarif" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+      <Label layoutX="52.0" layoutY="157.0" text="Heure de Départ"  />
+      <Label layoutX="380.0" layoutY="157.0" text="Tarif de Voyage"  />
+      <TextField fx:id="champcherche" layoutX="445.0" layoutY="228.0" onKeyReleased="#onsearch" promptText="Recherche" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
    </children>
 </AnchorPane>

@@ -67,11 +67,11 @@ public class DashboardController implements Initializable {
         TrajetRepository trajetRepository = new TrajetRepository();
         chargerBarChart();
         piechart();
-        nbUser.setText("Nombre d'utilisateurs: "+utilisateurRepository.countUtilisateur());
-        nbRes.setText("Nombre de réservations : "+reservationRepository.countReservation());
-        nbtrajet.setText("Nombre de trajets : "+trajetRepository.countTrajet());
-        nbCon.setText("Nombre de conducteurs : "+utilisateurRepository.countUtilisateurConducteur());
-        nbPas.setText("Nombre de passagers : "+utilisateurRepository.countUtilisateurPassager());
+        nbUser.setText("Utilisateurs: "+utilisateurRepository.countUtilisateur());
+        nbRes.setText("Réservations : "+reservationRepository.countReservation());
+        nbtrajet.setText("Trajets : "+trajetRepository.countTrajet());
+        nbCon.setText("Conducteurs : "+utilisateurRepository.countUtilisateurConducteur());
+        nbPas.setText("Passagers : "+utilisateurRepository.countUtilisateurPassager());
     }
 
 }

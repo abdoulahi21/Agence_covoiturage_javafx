@@ -1,5 +1,6 @@
 package com.example.covoiturage;
 
+import com.example.covoiturage.model.Reservation;
 import com.example.covoiturage.model.Utilisateur;
 import com.example.covoiturage.repository.UtilisateurRepository;
 import jakarta.persistence.EntityManager;
@@ -91,15 +92,17 @@ public class RegisterController implements Initializable {
             alert.setContentText("Enregistrement echoué");
             alert.showAndWait();
         } finally {
-            entityManagerFactory.close();
+            entityManager.close();
         }
     }
+    // Envoyer un email après avoir enregistré la réservation
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList items = combo.getItems();
         items.add("conducteur");
         items.add("passager");
+        //items.add("admin");
 
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -9,77 +9,81 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="657.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covoiturage.ReservationController">
-  <tabs>
-    <Tab text="Réservations">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="270.0" prefWidth="657.0">
-               <children>
-                  <Label layoutX="114.0" layoutY="38.0" text="Trajet" />
-                  <Label layoutX="115.0" layoutY="106.0" text="Nombres de Places" />
-                  <ComboBox fx:id="combo" layoutX="114.0" layoutY="62.0" prefHeight="25.0" prefWidth="194.0" />
-                  <TextField fx:id="champPlaceReserve" layoutX="114.0" layoutY="130.0" prefHeight="25.0" prefWidth="194.0" />
-                  <Button layoutX="357.0" layoutY="62.0" mnemonicParsing="false" onAction="#btnReservez" text="Réservez" />
-                  <Button layoutX="359.0" layoutY="102.0" mnemonicParsing="false" onAction="#btnClear" text="Annuler" />
-                  <TableView fx:id="tableReservation" layoutX="23.0" layoutY="189.0" prefHeight="286.0" prefWidth="633.0">
-                    <columns>
-                      <TableColumn fx:id="colDepart" prefWidth="75.0" text="Départ" />
-                      <TableColumn fx:id="colDestination" prefWidth="75.0" text="Destination" />
-                        <TableColumn fx:id="colJour" prefWidth="75.0" text="Jour" />
-                        <TableColumn fx:id="colHeure" prefWidth="75.0" text="Heure" />
-                        <TableColumn fx:id="colnbPlaces" prefWidth="115.33331298828125" text="Nombres de Places" />
-                        <TableColumn fx:id="colPassager" prefWidth="74.66668701171875" text="Passager" />
-                        <TableColumn fx:id="colTarif" prefWidth="72.00003051757812" text="Tarif" />
-                        <TableColumn fx:id="colEtat" prefWidth="72.00003051757812" text="Statut" />
-                    </columns>
-                  </TableView>
-               </children></AnchorPane>
-      </content>
-    </Tab>
-    <Tab fx:id="encours" text="Réservations encours">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <TableView fx:id="tableReservationEncours" layoutX="8.0" prefHeight="286.0" prefWidth="642.0">
-                     <columns>
-                        <TableColumn fx:id="colDepart1" prefWidth="75.0" text="Départ" />
-                        <TableColumn fx:id="colDestination1" prefWidth="75.0" text="Destination" />
-                        <TableColumn fx:id="colJour1" prefWidth="75.0" text="Jour" />
-                        <TableColumn fx:id="colHeure1" prefWidth="75.0" text="Heure" />
-                        <TableColumn fx:id="colnbPlaces1" prefWidth="115.33331298828125" text="Nombres de Places" />
-                        <TableColumn fx:id="colPassager1" prefWidth="74.66668701171875" text="Passager" />
-                        <TableColumn fx:id="colTarif1" prefWidth="72.00003051757812" text="Tarif" />
-                        <TableColumn fx:id="colEtat1" prefWidth="72.00003051757812" text="Statut" />
-                     </columns>
-                  </TableView>
-               </children></AnchorPane>
-      </content>
-    </Tab>
-      <Tab fx:id="termine" text="Réservations términées">
-         <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <TableView fx:id="tableReservationTerminé" layoutX="7.0" layoutY="-7.0" prefHeight="286.0" prefWidth="642.0">
-                     <columns>
-                        <TableColumn fx:id="colDepart11" prefWidth="75.0" text="Départ" />
-                        <TableColumn fx:id="colDestination11" prefWidth="75.0" text="Destination" />
-                        <TableColumn fx:id="colJour11" prefWidth="75.0" text="Jour" />
-                        <TableColumn fx:id="colHeure11" prefWidth="75.0" text="Heure" />
-                        <TableColumn fx:id="colnbPlaces11" prefWidth="115.33331298828125" text="Nombres de Places" />
-                        <TableColumn fx:id="colPassager11" prefWidth="74.66668701171875" text="Passager" />
-                        <TableColumn fx:id="colTarif11" prefWidth="72.00003051757812" text="Tarif" />
-                        <TableColumn fx:id="colEtat11" prefWidth="72.00003051757812" text="Statut" />
-                     </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-         </content>
-      </Tab>
-      <Tab fx:id="passee" text="Résevations passées">
-         <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-         </content>
-      </Tab>
-  </tabs>
+    <tabs>
+        <Tab text="Réservations">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="504.0" prefWidth="657.0" style="-fx-background-color: white;">
+                    <children>
+                        <TableView fx:id="tableReservation" layoutX="23.0" layoutY="189.0" prefHeight="286.0" prefWidth="633.0" style="-fx-background-color: #F9F9F9; -fx-border-color: #ddd; -fx-border-width: 1;">
+                            <columns>
+                                <TableColumn fx:id="colDepart" prefWidth="75.0" text="Départ" />
+                                <TableColumn fx:id="colDestination" prefWidth="75.0" text="Destination" />
+                                <TableColumn fx:id="colJour" prefWidth="75.0" text="Jour" />
+                                <TableColumn fx:id="colHeure" prefWidth="75.0" text="Heure" />
+                                <TableColumn fx:id="colnbPlaces" prefWidth="115.33" text="Nombres de Places" />
+                                <TableColumn fx:id="colPassager" prefWidth="74.67" text="Passager" />
+                                <TableColumn fx:id="colTarif" prefWidth="72.0" text="Tarif" />
+                                <TableColumn fx:id="colEtat" prefWidth="72.0" text="Statut" />
+                            </columns>
+                        </TableView>
+                        <Pane layoutX="64.0" layoutY="31.0" prefHeight="97.0" prefWidth="551.0">
+                            <children>
+                                <TextField fx:id="champPlaceReserve" layoutX="298.0" layoutY="46.0" prefHeight="25.0" prefWidth="194.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+                                <ComboBox fx:id="combo" layoutX="27.0" layoutY="46.0" prefHeight="25.0" prefWidth="194.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+                                <Label layoutX="27.0" layoutY="8.0" text="Trajet" />
+                                <Label layoutX="298.0" layoutY="9.0" text="Nombres de places" />
+                        <ProgressIndicator fx:id="loader" layoutX="244.0" layoutY="42.0" progress="0.0" />
+                            </children>
+                        </Pane>
+                        <Button layoutX="184.0" layoutY="150.0" mnemonicParsing="false" onAction="#btnReservez" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-background-radius: 5;" text="Réservez" />
+                        <Button layoutX="277.0" layoutY="150.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: #FF6F61; -fx-text-fill: white; -fx-background-radius: 5;" text="Annuler" />
+                        <Button layoutX="369.0" layoutY="149.0" mnemonicParsing="false" onAction="#btnchangeEtat" style="-fx-background-color: #F0AD4E; -fx-text-fill: white; -fx-background-radius: 5;" text="Terminer" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab fx:id="encours" text="Réservations encours">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="657.0">
+                    <children>
+                        <TableView fx:id="tableReservationEncours" layoutX="8.0" prefHeight="286.0" prefWidth="642.0" style="-fx-background-color: #F9F9F9; -fx-border-color: #ddd; -fx-border-width: 1;">
+                            <columns>
+                                <TableColumn fx:id="colDepart1" prefWidth="75.0" text="Départ" />
+                                <TableColumn fx:id="colDestination1" prefWidth="75.0" text="Destination" />
+                                <TableColumn fx:id="colJour1" prefWidth="75.0" text="Jour" />
+                                <TableColumn fx:id="colHeure1" prefWidth="75.0" text="Heure" />
+                                <TableColumn fx:id="colnbPlaces1" prefWidth="115.33" text="Nombres de Places" />
+                                <TableColumn fx:id="colPassager1" prefWidth="74.67" text="Passager" />
+                                <TableColumn fx:id="colTarif1" prefWidth="72.0" text="Tarif" />
+                                <TableColumn fx:id="colEtat1" prefWidth="72.0" text="Statut" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab fx:id="termine" text="Réservations terminées">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="657.0">
+                    <children>
+                        <TableView fx:id="tableReservationTerminé" layoutX="7.0" layoutY="0.0" prefHeight="286.0" prefWidth="642.0" style="-fx-background-color: #F9F9F9; -fx-border-color: #ddd; -fx-border-width: 1;">
+                            <columns>
+                                <TableColumn fx:id="colDepart11" prefWidth="75.0" text="Départ" />
+                                <TableColumn fx:id="colDestination11" prefWidth="75.0" text="Destination" />
+                                <TableColumn fx:id="colJour11" prefWidth="75.0" text="Jour" />
+                                <TableColumn fx:id="colHeure11" prefWidth="75.0" text="Heure" />
+                                <TableColumn fx:id="colnbPlaces11" prefWidth="115.33" text="Nombres de Places" />
+                                <TableColumn fx:id="colPassager11" prefWidth="74.67" text="Passager" />
+                                <TableColumn fx:id="colTarif11" prefWidth="72.0" text="Tarif" />
+                                <TableColumn fx:id="colEtat11" prefWidth="72.0" text="Statut" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+    </tabs>
 </TabPane>

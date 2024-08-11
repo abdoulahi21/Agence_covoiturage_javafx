@@ -6,31 +6,35 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="504.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covoiturage.VehiculeController">
-   <children>
-      <TableView fx:id="tableVehicule" layoutX="15.0" layoutY="244.0" onMouseClicked="#charge" prefHeight="260.0" prefWidth="643.0">
-        <columns>
-          <TableColumn fx:id="colMatricule" prefWidth="122.6666589975357" text="Matricule" />
-          <TableColumn fx:id="colMarque" prefWidth="102.6666488647461" text="Marque" />
-            <TableColumn fx:id="colModel" prefWidth="100.00001525878906" text="Model" />
-            <TableColumn fx:id="colNombrePlaces" prefWidth="125.33331298828125" text="Nombre de Places" />
-            <TableColumn fx:id="colConducteur" prefWidth="190.66667683919275" text="Conducteur" />
-            <TableColumn fx:id="colid" prefWidth="190.66667683919275" text="Conducteur" visible="false" />
-        </columns>
-      </TableView>
-      <Label layoutX="52.0" layoutY="40.0" text="Marque" />
-      <Label layoutX="377.0" layoutY="40.0" text="Model" />
-      <TextField fx:id="champMarque" layoutX="52.0" layoutY="67.0" prefHeight="25.0" prefWidth="215.0" />
-      <TextField fx:id="champModel" layoutX="379.0" layoutY="67.0" prefHeight="25.0" prefWidth="215.0" />
-      <TextField fx:id="champMatricule" layoutX="53.0" layoutY="140.0" prefHeight="25.0" prefWidth="215.0" />
-      <Label layoutX="52.0" layoutY="115.0" text="Matricule" />
-      <Button layoutX="66.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnAdd" prefHeight="25.0" prefWidth="71.0" text="Ajouter" />
-      <Button layoutX="157.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnDelete" text="Supprimer" />
-      <Button layoutX="248.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="25.0" prefWidth="71.0" text="Modifier" />
-      <Button layoutX="337.0" layoutY="203.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="25.0" prefWidth="71.0" text="Annuler" />
-      <Label layoutX="380.0" layoutY="115.0" text="Nombre de Places" />
-      <TextField fx:id="champNombreplace" layoutX="380.0" layoutY="140.0" prefHeight="25.0" prefWidth="215.0" />
-      <TextField fx:id="champcherche" layoutX="444.0" layoutY="204.0" onKeyReleased="#onsearch" promptText="Recherche" />
-   </children>
+<AnchorPane prefHeight="504.0" prefWidth="657.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covoiturage.VehiculeController">
+    <children>
+        <TableView fx:id="tableVehicule" layoutX="15.0" layoutY="244.0" onMouseClicked="#charge" prefHeight="260.0" prefWidth="643.0" style="-fx-background-color: #F9F9F9; -fx-border-color: #ddd; -fx-border-width: 1;">
+            <columns>
+                <TableColumn fx:id="colMatricule" prefWidth="122.67" text="Matricule" />
+                <TableColumn fx:id="colMarque" prefWidth="102.67" text="Marque" />
+                <TableColumn fx:id="colModel" prefWidth="100.0" text="Model" />
+                <TableColumn fx:id="colNombrePlaces" prefWidth="125.33" text="Nombre de Places" />
+                <TableColumn fx:id="colConducteur" prefWidth="190.67" text="Conducteur" />
+                <TableColumn fx:id="colid" prefWidth="190.67" text="ID" visible="false" />
+            </columns>
+        </TableView>
+
+        <Label layoutX="52.0" layoutY="40.0" text="Marque"  />
+        <Label layoutX="377.0" layoutY="40.0" text="Model"  />
+        <Label layoutX="52.0" layoutY="115.0" text="Matricule"  />
+        <Label layoutX="380.0" layoutY="115.0" text="Nombre de Places"  />
+
+        <TextField fx:id="champMarque" layoutX="52.0" layoutY="67.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+        <TextField fx:id="champModel" layoutX="377.0" layoutY="67.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+        <TextField fx:id="champMatricule" layoutX="52.0" layoutY="140.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+        <TextField fx:id="champNombreplace" layoutX="377.0" layoutY="140.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+        <TextField fx:id="champcherche" layoutX="444.0" layoutY="204.0" onKeyReleased="#onsearch" promptText="Recherche" style="-fx-background-color: #F0F0F0; -fx-background-radius: 5;" />
+
+        <Button layoutX="66.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnAdd" prefHeight="25.0" prefWidth="71.0" text="Ajouter" style="-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-background-radius: 5;" />
+        <Button layoutX="157.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnDelete" text="Supprimer" style="-fx-background-color: #FF6F61; -fx-text-fill: white; -fx-background-radius: 5;" />
+        <Button layoutX="248.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="25.0" prefWidth="71.0" text="Modifier" style="-fx-background-color: #F0AD4E; -fx-text-fill: white; -fx-background-radius: 5;" />
+        <Button layoutX="337.0" layoutY="203.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="25.0" prefWidth="71.0" text="Annuler" style="-fx-background-color: #5BC0DE; -fx-text-fill: white; -fx-background-radius: 5;" />
+    </children>
 </AnchorPane>

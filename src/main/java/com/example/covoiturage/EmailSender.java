@@ -1,27 +1,24 @@
 package com.example.covoiturage;
-
-import java.util.Properties;
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 public class EmailSender {
+    private static final String USERNAME = "b9fdce3b0f5d51";
+    private static final String PASSWORD = "4a6a9d10f4ac04";
 
     public static void sendEmail(String recipient, String subject, String content) {
-        // Mailtrap SMTP server information
-        String host = "smtp.mailtrap.io";
-        final String username = "your_mailtrap_username"; // Change to your Mailtrap username
-        final String password = "your_mailtrap_password"; // Change to your Mailtrap password
-        int port = 2525;
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "sandbox.smtp.mailtrap.io");
+        properties.put("mail.smtp.port", "2525");
 
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", port);
-
-        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+                return new PasswordAuthentication(USERNAME, PASSWORD);
             }
         });
 
@@ -34,15 +31,10 @@ public class EmailSender {
 
             Transport.send(message);
 
-            System.out.println("Email sent successfully!");
+            System.out.println("Email envoyé avec succès !");
 
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
+            e.printStackTrace();
+}
     }
-
-
-        // Test sending an email
-       // sendEmail("to@example.com", "Test Subject", "Test Content");
-
 }

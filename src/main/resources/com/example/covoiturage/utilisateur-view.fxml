@@ -4,14 +4,17 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="504.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covoiturage.UtilisateurView">
+<AnchorPane prefHeight="504.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.covoiturage.UtilisateurController">
    <children>
-      <TableView layoutX="9.0" layoutY="78.0" prefHeight="359.0" prefWidth="644.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
+        <TableView fx:id="tableUtilisateur" layoutX="14.0" layoutY="14.0" prefHeight="476.0" prefWidth="629.0">
+            <columns>
+            <TableColumn fx:id="cid" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="cnom" prefWidth="75.0" text="Nom" />
+            <TableColumn fx:id="cprenom" prefWidth="102.66670227050781" text="Prenom" />
+            <TableColumn fx:id="cemail" prefWidth="109.99993896484375" text="Email" />
+            <TableColumn fx:id="ctel" prefWidth="118.6666259765625" text="Telephone" />
+            <TableColumn fx:id="crole" prefWidth="147.33340454101562" text="Role" />
+            </columns>
+        </TableView>
    </children>
 </AnchorPane>

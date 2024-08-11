@@ -17,7 +17,15 @@ public class UtilisateurRepository {
                 .getSingleResult();
         return utilisateur;
     }
-
+     public List<Utilisateur> getAllUtilisateur(){
+        EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        List<Utilisateur> utilisateurs = entityManager.createQuery("from Utilisateur", Utilisateur.class).getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return utilisateurs;
+    }
     public void addUtilisateur(Utilisateur utilisateur) {
         EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -52,15 +60,7 @@ public class UtilisateurRepository {
         entityManager.close();
         return utilisateur;
     }
-   public List<Utilisateur> getAllUtilisateur(){
-        EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        List<Utilisateur> utilisateur = entityManager.createQuery("from Utilisateur ", Utilisateur.class).getResultList();
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        return utilisateur;
-    }
+
     //nombre total d'utilisateur
     public Long countUtilisateur(){
         EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
@@ -89,15 +89,7 @@ public class UtilisateurRepository {
         entityManager.close();
         return utilisateur;
     }
-    public List<Utilisateur> getAllUtimisateur(){
-        EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        List<Utilisateur> utilisateur = entityManager.createQuery("from Utilisateur ", Utilisateur.class).getResultList();
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        return utilisateur;
-    }
+
     public List<Utilisateur> searchUtilisateur(String search){
         EntityManagerFactory entityManagerFactory = JpaUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
